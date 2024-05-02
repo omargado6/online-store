@@ -4,7 +4,7 @@ import proimg from "../images/profile.avif";
 import { Link } from 'react-router-dom';
 function NavBar() {
     return (
-        <div className="navbar bg-base-100 m-auto w-full">
+        <div className="navbar bg-base-100 w-full sticky z-10 top-0">
             {/* first */}
             <div className="flex-1">
                 <Link to="/"> <a className="btn btn-ghost hover:bg-transparent text-xl" href='/'><img src={logo} alt='/' className="h-full" /></a></Link>

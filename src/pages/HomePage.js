@@ -14,7 +14,7 @@ function HomePage() {
     { id: 4, name: 'Smartwatches', image: smartwatch, to: '/Activitytrackerssmartwatches' }
   ]
   return (
-    <div className="Homepage w-5/6 m-auto p-7">
+    <div className="Homepage w-5/6 m-auto p-7 ">
       {/* best category */}
       <div className="card w-8/12 h-96 max-md:h-72 m-auto bg-base-100 shadow-3xl mb-3 hover:-translate-y-6 duration-700">
         <figure className="h-3/5"><img src={mobile} alt="Shoes" className="h-full w-full hover:scale-150 duration-300" /></figure>
