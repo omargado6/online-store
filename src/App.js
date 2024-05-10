@@ -16,7 +16,7 @@ function App() {
 
   // Hide footer when the path is '/checkout'
   useState(() => {
-    setHideFooter(location.pathname === '/checkout' || location.pathname === '/cart' );
+    setHideFooter(location.pathname === '/checkout' );
   }, [location.pathname]);
 
   return (
