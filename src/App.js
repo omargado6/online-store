@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
 
 import NavBar from './components/NavBar';
@@ -14,11 +14,12 @@ function App() {
   const location = useLocation();
   const [hideFooter, setHideFooter] = useState(false);
 
-  // Hide footer when the path is '/checkout'
-  useState(() => {
-    setHideFooter(location.pathname === '/checkout');
-  }, [location.pathname]);
+  
+  useEffect(() => {
+    const isCheckoutPath = location.pathname === '/checkout';
 
+    setHideFooter(isCheckoutPath);
+  }, [location.pathname]); 
   return (
     <div className="App w-full">
       <NavBar />
