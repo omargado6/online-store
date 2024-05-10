@@ -9,8 +9,6 @@ function ProductDetails() {
   const [seemore, setSeemore] = useState(true);
   const [img, setImg] = useState(null);
 
-  
-
   const dispatch = useDispatch();
   const { productId } = useParams();
 
@@ -23,7 +21,7 @@ function ProductDetails() {
 
   return (
     <div className="">
-      {specificCategory && specificCategory.map((product) => (
+      {specificCategory.map((product) => (
         <div key={product.id} className="w-11/12 h-full flex flex-wrap justify-around gap-10 m-auto pt-5 text-center">
           {/* imgs */}
           <div className=" w-6/12 h-1/2 max-sm:w-full mx-auto ">
@@ -47,7 +45,7 @@ function ProductDetails() {
               <div className="card-body text-start">
                 <h2 className="card-title text-start "><p>{product.name}</p></h2>
                 <div>
-                  <p className="text-slate-600">${product.price}</p>
+                  <p className="text-slate-600 font-bold">${product.price}</p>
                   <p className=" text-slate-500 text-xs">exclusive of VAT</p>
                 </div>
                 <div className="information pt-5">
@@ -99,7 +97,7 @@ function ProductDetails() {
                   </div>
                 </div>
                 <div className="mx-auto pt-2">
-                  <button className="btn btn-outline hover:text-white" onClick={() => dispatch(addProduct(product))}>add to cart</button>
+                  <button className="btn btn-outline text-cyan-500  hover:bg-custom-blue hover:border-custom-blue hover:text-white" onClick={() => dispatch(addProduct(product))}>add to cart</button>
                 </div>
               </div>
             </div>

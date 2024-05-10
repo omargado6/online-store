@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { clear, deleteProduct } from '../rtk/slices/CartSlice';
 import { useNavigate } from 'react-router';
@@ -6,15 +6,14 @@ import { useNavigate } from 'react-router';
 function CartPage() {
   const dispatch = useDispatch();
   const cart = useSelector(state => state.cart);
-  const navigate =  useNavigate();
+  const navigate = useNavigate();
 
   const total = useSelector(state => state.cart.reduce((acc, item) => acc + item.price * item.quantity, 0));
-  
+
   return (
     <div className="cartPage ">
-      <h1 className="text-center text-custom-blue dark:text-white text-3xl font-serif font-semibold">Your Page</h1>
+      <h1 className="text-center text-custom-blue dark:text-white text-3xl font-serif font-semibold">Cart Page</h1>
       <div className="overflow-x-auto pt-10">
-        <h3 className="font-bold mx-10 pb-5">Total Price : ${total}</h3>
         <table className="table">
           {/* head */}
           <thead>
@@ -39,7 +38,7 @@ function CartPage() {
                 <td className="w-2/12 font-bold">${product.price}</td>
                 <td className="w-1/12 font-bold">{product.quantity}</td>
                 <th className="w-1/5 max-sm:w-2/12">
-                  <button className="btn btn-outline text-green-600  hover:bg-green-600 hover:border-green-600 hover:text-white btn-sm m-1"onClick={()=> navigate(`/products/${product.id}`)} >details</button>
+                  <button className="btn btn-outline text-cyan-500  hover:bg-custom-blue hover:border-custom-blue hover:text-white btn-sm m-1" onClick={() => navigate(`/products/${product.id}`)} >details</button>
                   <button className="btn btn-outline text-red-500  hover:bg-red-500 hover:border-red-500 hover:text-white btn-sm m-1" onClick={() => dispatch(deleteProduct(product))}>delete</button>
                 </th>
               </tr>
@@ -55,8 +54,15 @@ function CartPage() {
           </tfoot>
         </table>
       </div>
-      <div className="mx-auto text-center p-2">
-        <button className="btn btn-outline text-red-500  hover:bg-red-500 hover:border-red-500 hover:text-white" onClick={() => dispatch(clear())}>clear all product</button>
+      <h3 className="font-bold mx-10 p-5">Total Price : ${(total).toFixed(2)}</h3>
+
+      <div className="flex justify-around w-max mx-auto pt-10">
+        <div className="mx-auto text-center p-2">
+          <button className="btn btn-outline text-red-500  hover:bg-red-500 hover:border-red-500 hover:text-white border-2" onClick={() => dispatch(clear())}>clear all product</button>
+        </div>
+        <div className="mx-auto text-center p-2">
+          <button className="btn btn-outline text-cyan-500  hover:bg-custom-blue hover:border-custom-blue hover:text-white border-2" onClick={() => navigate(`/checkout`)} >Place Order</button>
+        </div>
       </div>
     </div>
   )
