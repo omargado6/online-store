@@ -2,26 +2,48 @@ import React, { useState } from 'react';
 import '../index.css';
 import { useSelector } from 'react-redux';
 function ChekOut() {
-    const [emailError, setEmailError] = useState('');
-    const [email, setEmail] = useState('');
-    const [passwordError, setPasswordError] = useState('');
-    const [password, setPassword] = useState('');
-
     const cart = useSelector(state => state.cart);
     const total = useSelector(state => state.cart.reduce((acc, item) => acc + item.price * item.quantity, 0));
+
+    const [formData, setFormData] = useState({
+        email: '',
+        password: ''
+    });
+    const [errors, setErrors] = useState({})
+
+    const validateForm = () => {
+        let errors = {};
+        let isValid = true;
+        if (!formData.email.includes('@') || !formData.email.indexOf('@') > !formData.email.indexOf('.')) {
+            errors.email = 'Email have includes @';
+            isValid = false;
+        }
+        if (formData.password.length < 6) {
+            errors.password = 'Email have to be more than 8 char';
+            isValid = false;
+        } else if (!/(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/.test(formData.password)) {
+            errors.password = 'Password must contain uppercase letter, one lowercase letter, one number, and one special character ($@$!%*?&)';
+            isValid = false;
+        }
+        setErrors(errors);
+        return isValid;
+    }
     const handleSubmit = (e) => {
         e.preventDefault();
-        if (!email.includes('@')) {
-            setEmailError('Email must contain @ symbol');
-            return;
+        if (validateForm()) {
+            console.log('form is successfuly');
+        } else {
+            console.log('form is not successfuly');
         }
-
-        if (password.length < 6 || !/[A-Z]/.test(password)) {
-            setPasswordError('must be at least 6 char , contain one capital');
-            return;
-        }
-        window.location.href = '/cart';
-    };
+    }
+  
+    const changehandle = (e) => {
+        const { name, value } = e.target;
+        setFormData({
+            ...formData,
+            [name]: value
+        });
+    }
 
     return (
         <div className="flex flex-wrap gap-4 m-auto w-4/5 justify-around min-h-[82.5vh]  max-h-[120vh] py-10 ">
@@ -35,25 +57,25 @@ function ChekOut() {
                         <div className="mx-3 w-full">
                             <div className="">
                                 <label className='relative py-3 w-full'>
-                                    <input type="text" placeholder="Email" className="checkout-input" required
-                                        value={email} onChange={(e) => setEmail(e.target.value)} />
+                                    <input type="text" placeholder="Email" className="checkout-input" name="email"
+                                        value={formData.email} onChange={changehandle} />
                                     <span className='checkout-main'>Email</span>
                                 </label>
                             </div>
                             <div>
-                                {emailError && <h5 className='text-red-500 text-sm mx-3 pt-1'>errror {emailError}</h5>}
+                                {errors.email && <h5 className='text-red-500 text-sm mx-3 pt-1'>{errors.email}</h5>}
                             </div>
                         </div>
                         <div className="mx-3 w-full">
                             <div>
                                 <label className='relative py-3 w-full'>
-                                    <input type="password" placeholder="Password" className="checkout-input" required
-                                        value={password} onChange={(e) => setPassword(e.target.value)} />
+                                    <input type="password" placeholder="Password" className="checkout-input" name="password"
+                                        value={formData.password} onChange={changehandle} />
                                     <span className='checkout-main'>Password</span>
                                 </label>
                             </div>
                             <div>
-                                {passwordError && <h5 className='text-red-500 text-sm mx-3 pt-1 '>{passwordError}</h5>}
+                                {errors.password && <h5 className='text-red-500 text-sm mx-3 pt-1 '>{errors.password}</h5>}
                             </div>
                         </div>
                     </div>
